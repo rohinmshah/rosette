@@ -43,7 +43,7 @@
 ; If the evaluation of the thunk results in an exn:fail? exception, returns 
 ; the list '(#f).
 (define (eval/asserts closure)
-  (with-handlers ([exn:fail? return-list-#f])
+  (with-handlers ([exn:fail? (lambda (e) (printf "WARNING: Top level exception caught by solve/verify/synthesize: ~a~%" e) '(#f)) #;return-list-#f])
     (with-asserts-only (closure))))
 
 ; Searches for a model, if any, for the conjunction 

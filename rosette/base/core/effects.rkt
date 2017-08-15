@@ -144,8 +144,10 @@
 ; Reverts the state of set! variables and struct fields to
 ; their initial values, without encapsulating the final state updates.
 ; Returns (values #f #f).  The error argument is ignored.
+(require (only-in racket/exn exn->string))
 (define (rollback/suppress err)
-  ;(printf "\n\nERROR: ~a\n\n" err)
+  ;(printf "ERROR: ~a~%" err)
+  (printf "\n\nWARNING: Rosette caught and squelched the following error:\n~a\n\n" (exn->string err))
   (unless (zero? (dict-count (env)))
     (for* ([states (in-dict-values (env))]
            [s (if (list? states) (in-list states) (in-dict-values states))])

@@ -23,7 +23,7 @@
   [(define (write-proc self port mode) 
      (fprintf port "{")
      (case mode
-       [(#t #f) 
+       [() ;(#t #f) 
         (fprintf port "~a:~a" (equal-hash-code self) (length (union-contents self)))]
        [else
         (let ([vs (union-contents self)])
